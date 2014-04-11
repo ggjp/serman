@@ -1,0 +1,97 @@
+#!/bin/sh
+
+# serman - A simple service manager
+# Copyright (C) 2014 Jean-Philippe Gagné Guay
+# 
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# This is a simple service manager for services and network connections.
+
+usage() {
+	echo "USAGE: serman <action> <service>"
+	echo
+	echo "  serman start       <service>  start the specified service"
+	echo "  serman stop    all|<service>  stop all services or the one specified"
+	echo "  serman status  all|<service>  status of all services or the one specified"
+	echo "  serman --help                 show this help message"
+	echo
+	echo "A service's script should be put in /etc/init.d/all."
+}
+
+exec_start() {
+	if . "/etc/init.d/all/$1" && start; then
+		ln -sf "/etc/init.d/all/$1" "/etc/init.d/running/$1"
+		echo -e "[serman]: [ \033[32mOK\033[0m ] $1 is running"
+	else
+		echo -e "[serman]: [ \033[31mFAIL\033[0m ] $1 failed to start"
+	fi
+}
+
+exec_stop() {
+	if . "/etc/init.d/running/$1" && stop; then
+		rm "/etc/init.d/running/$1"
+		echo -e "[serman]: [ \033[32mOK\033[0m ] $1 stopped"
+	else
+		echo -e "[serman]: [ \033[31mFAIL\033[0m ] $1 failed to stop"
+	fi
+}
+
+exec_status() {
+	if . "/etc/init.d/all/$1" && [ -f "/etc/init.d/running/$1" ] && status; then
+		echo -e "[serman]: [ \033[32mOK\033[0m ] $1 seems to be running"
+	else
+		echo -e "[serman]: [ \033[31mFAIL\033[0m ] $1 does not seem to be running"
+	fi
+}
+
+case "$1" in
+start)
+	if [ $# != 2 ]; then
+		usage
+	else
+		exec_start "$2"
+	fi;;
+stop)
+	if [ $# != 2 ];	then
+		usage
+	else
+		if [ "$2" = all ]; then
+			cd /etc/init.d/running
+			for service in *; do
+				# A check for the case when no files are in the directory (*) and ignore directories
+				[ -f "/etc/init.d/running/$service" ] || continue
+				exec_stop "$service"
+			done
+		else
+			exec_stop "$2"
+		fi
+	fi;;
+status)
+	if [ $# != 2 ];	then
+		usage
+	else
+		if [ "$2" = all ]; then
+			cd /etc/init.d/all
+			for service in *; do
+				# A check for the case when no files are in the directory (*) and ignore directories
+				[ -f "/etc/init.d/all/$service" ] || continue
+				exec_status "$service"
+			done
+		else
+			exec_status "$2"
+		fi
+	fi;;
+*)
+	usage;;
+esac

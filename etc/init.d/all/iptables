@@ -1,0 +1,13 @@
+start() {
+	iptables-restore < /etc/iptables/iptables.rules
+}
+
+stop() {
+	while read -r table; do
+		iptables-restore < "/var/lib/iptables/empty-$table.rules"
+	done < /proc/net/ip_tables_names
+}
+
+status() {
+	return 0
+}

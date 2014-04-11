@@ -1,0 +1,11 @@
+start() {
+	crond &> /dev/null
+}
+
+stop() {
+	killall crond &> /dev/null
+}
+
+status() {
+	pgrep "^crond\$" &> /dev/null
+}

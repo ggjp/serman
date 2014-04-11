@@ -1,0 +1,15 @@
+# This script (strangely) does not work when called in the booting process.
+# However, it works when called with serman.
+
+start() {
+	wicd &> /dev/null
+}
+
+stop() {
+	killall wicd &> /dev/null
+	killall wicd-monitor &> /dev/null
+}
+
+status() {
+	pgrep "^wicd\$" &> /dev/null && pgrep "^wicd-monitor\$" &> /dev/null
+}

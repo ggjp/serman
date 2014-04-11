@@ -1,0 +1,11 @@
+start() {
+	syslog-ng &> /dev/null
+}
+
+stop() {
+	killall syslog-ng &> /dev/null
+}
+
+status() {
+	pgrep "^syslog-ng\$" &> /dev/null
+}

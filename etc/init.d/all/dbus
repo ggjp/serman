@@ -1,0 +1,13 @@
+start() {
+	mkdir /run/dbus
+	dbus-daemon --system &> /dev/null
+}
+
+stop() {
+	killall dbus-launch &> /dev/null
+	killall dbus-daemon &> /dev/null
+}
+
+status() {
+	pgrep "^dbus-daemon\$" &> /dev/null && pgrep "^dbus-launch\$" &> /dev/null
+}

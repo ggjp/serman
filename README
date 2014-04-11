@@ -1,0 +1,66 @@
+serman --- simple service manager + an rc script
+================================================
+
+This is a simple service manager. Additionally, I provide and rc script for
+booting. Even though the rc script lies in the same directory as the service
+files, it is totally independent from the service manager.
+
+
+Booting a complete usable system
+--------------------------------
+
+To clarify the booting process, here are three needed tools:
+
+- An implementation of init(8)
+    Its only tasks should be to be the parent of all processes and run an init
+    script on startup. sinit[1] is an init of less than 100 understandable C
+    code that basically does nothing more than call an init script. In fact,
+    it does more than what I consider necessary for an init. It can call a
+    script when it is signaled about reboot and shutdown. It is not however
+    enough to make the code hard to understand. I simply don't use it.
+
+- An init script
+    The rc script provided here only defines what happens on boot, reboot and
+    shutdown. It does not seek to do anything else.
+
+- A service manager (not absolutely needed)
+    This one should manage the services on a machine (how services need to be
+    started and stopped). Services can be started on boot by the init script. I
+    provide a service manager called serman.
+
+In fact, the line between the last two items is not always well defined. For
+example, hwclock could be set in a service file. The user can decide where to
+start something (in the rc script or a service).
+
+
+serman usage
+------------
+
+Service files should be put in /etc/init.d/all. They should implement three
+functions: start, stop and status. They should return 0 (default) on success and
+1 on failure. Running services will become symbolic links in
+/etc/init.d/running. Type `serman --help' to know how to use it (or read its
+code, it is very short).
+
+
+Warning
+-------
+
+Everything inside the init.d/ directory should be checked before use.
+
+You should read the rc script. It contains what is part of my system
+initialization. You will likely have different needs.
+
+Also, the scripts in the init.d directories are not necessarily maintained. The
+scripts that I don't personally use were added at some point and left there
+unmaintained.
+
+
+License
+-------
+
+serman is licensed under the GNU General Public License version 3. See the
+COPYING file for the full license.
+
+
+[1] http://git.2f30.org/sinit/
