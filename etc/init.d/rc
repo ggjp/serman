@@ -58,7 +58,7 @@ init() {
 
 	echo "[RC] Starting services..."
 	for service in $SERVICES; do
-		serman start "$service"
+		servman start "$service"
 	done
 
 	echo "[RC] Starting ttys..."
@@ -72,7 +72,7 @@ shutdown() {
 	echo "[RC] Shutting down..."
 
 	echo "[RC] Stopping services..."
-	serman stop all
+	servman stop all
 
 	echo "[RC] Saving system clock..."
 	TZ="US/Eastern" hwclock -w -u
