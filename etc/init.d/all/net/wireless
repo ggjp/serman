@@ -1,10 +1,10 @@
 start() {
 	wpa_supplicant -i wlp7s0 -c /etc/wpa_supplicant/wpa_supplicant.conf -B
-	dhcpcd wlp7s0
+	dhcpcd -q wlp7s0
 }
 
 stop() {
-	dhcpcd -x wlp7s0
+	dhcpcd -x -q wlp7s0
 	killall wpa_supplicant
 }
 
