@@ -24,6 +24,6 @@ package() {
   cd "$srcdir/$_gitname"
   mkdir -p "$pkgdir/usr/bin"
   cp -R etc/ "$pkgdir"
-  mkdir -p "$pkgdir/etc/init.d/running"
+  mkdir -p "$pkgdir/etc/init.d/running/net"
   cp bin/servman "$pkgdir/usr/bin/"
 }

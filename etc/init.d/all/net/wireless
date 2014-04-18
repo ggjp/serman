@@ -1,0 +1,13 @@
+start() {
+	wpa_supplicant -i wlp7s0 -c /etc/wpa_supplicant/wpa_supplicant.conf -B
+	dhcpcd wlp7s0
+}
+
+stop() {
+	dhcpcd -x wlp7s0
+	killall wpa_supplicant
+}
+
+status() {
+	pgrep "^wpa_supplicant\$" &> /dev/null && pgrep "^dhcpcd\$" &> /dev/null
+}
