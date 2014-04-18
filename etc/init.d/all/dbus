@@ -4,10 +4,11 @@ start() {
 }
 
 stop() {
-	killall dbus-launch &> /dev/null
+	killall dbus-launch &> /dev/null &&
 	killall dbus-daemon &> /dev/null
 }
 
 status() {
-	pgrep "^dbus-daemon\$" &> /dev/null && pgrep "^dbus-launch\$" &> /dev/null
+	pgrep "^dbus-launch\$" &> /dev/null &&
+	pgrep "^dbus-daemon\$" &> /dev/null
 }

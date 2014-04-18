@@ -6,10 +6,11 @@ start() {
 }
 
 stop() {
-	killall wicd &> /dev/null
+	killall wicd &> /dev/null &&
 	killall wicd-monitor &> /dev/null
 }
 
 status() {
-	pgrep "^wicd\$" &> /dev/null && pgrep "^wicd-monitor\$" &> /dev/null
+	pgrep "^wicd\$" &> /dev/null &&
+	pgrep "^wicd-monitor\$" &> /dev/null
 }

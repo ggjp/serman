@@ -22,11 +22,13 @@ usage() {
 	echo "USAGE: servman <action> <service>"
 	echo
 	echo "  servman start       <service>  start the specified service"
-	echo "  servman stop    all|<service>  stop all services or the one specified"
+	echo "  servman stop    all|<service>  stop all started services or the one specified"
 	echo "  servman status  all|<service>  status of all services or the one specified"
 	echo "  servman --help                 show this help message"
 	echo
 	echo "A service's script should be put in /etc/init.d/all."
+	echo "You should make sure that the functions in the script return 0 (default) or 1 when"
+	echo "(you consider) it succeeds or fails respectively."
 }
 
 exec_start() {
@@ -41,7 +43,7 @@ exec_start() {
 exec_stop() {
 	if . "/etc/init.d/running/$1" && stop; then
 		rm "/etc/init.d/running/$1"
-		echo -e "[servman]: [ \033[32mOK\033[0m ] $1 stopped"
+		echo -e "[servman]: [ \033[32mOK\033[0m ] $1 stopped successfully"
 	else
 		echo -e "[servman]: [ \033[31mFAIL\033[0m ] $1 failed to stop"
 	fi
