@@ -2,7 +2,7 @@
 
 _gitname=servman
 pkgname=servman-git
-pkgver=1
+pkgver=r5.5c2fc13
 pkgrel=1
 pkgdesc="A simple service manager (including an rc script)"
 url="https://github.com/ggjp/servman"
@@ -10,8 +10,8 @@ arch=('any')
 license=('GPL3')
 depends=('sh')
 makedepends=('git')
-optdepends=('sinit: as init'
-            'ubase: for halt, killall5 and getty')
+optdepends=('sinit: for init'
+            'ubase: for halt, killall5, getty and respawn')
 source=('git+https://github.com/ggjp/servman.git')
 sha256sums=('SKIP')
 

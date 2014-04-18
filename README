@@ -1,5 +1,5 @@
 servman --- simple service manager + an rc script
-================================================
+=================================================
 
 This is a simple service manager. Additionally, I provide and rc script for
 booting. Even though the rc script lies in the same directory as the service
