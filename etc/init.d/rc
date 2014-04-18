@@ -4,7 +4,7 @@
 # initialized, rebooted of shutdown. Services management is
 # not its job (though it can call a service manager here).
 
-SERVICES="syslog-ng dbus cron iptables"
+SERVICES="syslog-ng dbus acpid iptables cron"
 
 init() {
 	echo "[RC] Mounting filesystems..."

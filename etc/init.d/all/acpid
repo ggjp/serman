@@ -1,0 +1,11 @@
+start() {
+	acpid &> /dev/null
+}
+
+stop() {
+	killall acpid &> /dev/null
+}
+
+status() {
+	pgrep "^acpid\$" &> /dev/null
+}
