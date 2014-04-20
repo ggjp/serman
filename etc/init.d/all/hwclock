@@ -1,0 +1,11 @@
+start() {
+	TZ="US/Eastern" hwclock -s -u
+}
+
+stop() {
+	TZ="US/Eastern" hwclock -w -u
+}
+
+status() {
+	return 0
+}

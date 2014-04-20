@@ -4,7 +4,7 @@
 # initialized, rebooted of shutdown. Services management is
 # not its job (though it can call a service manager here).
 
-SERVICES="syslog-ng dbus acpid iptables cron"
+SERVICES="hwclock syslog-ng dbus acpid iptables cron"
 
 init() {
 	echo "[RC] Mounting filesystems..."
@@ -49,9 +49,6 @@ init() {
 	echo "[RC] Setting up the lo device..."
 	ip link set up dev lo
 
-	echo "[RC] Setting time and timezone..."
-	TZ="US/Eastern" hwclock -s -u
-
 	echo "[RC] Setting random seed..."
 	[ -e /etc/random-seed ] && cp /etc/random-seed /dev/urandom
 	dd if=/dev/urandom of=/etc/random-seed count=1 bs=512 2> /dev/null
@@ -74,9 +71,6 @@ shutdown() {
 	echo "[RC] Stopping services..."
 	servman stop all
 
-	echo "[RC] Saving system clock..."
-	TZ="US/Eastern" hwclock -w -u
-	
 	echo "[RC] Storing random seed..."
 	dd if=/dev/urandom of=/etc/random-seed count=1 bs=512 2> /dev/null
 	
