@@ -2,7 +2,7 @@
 
 _gitname=servman
 pkgname=servman-git
-pkgver=r5.5c2fc13
+pkgver=r9.a13bbc5
 pkgrel=1
 pkgdesc="A simple service manager (including an rc script)"
 url="https://github.com/ggjp/servman"
@@ -14,6 +14,7 @@ optdepends=('sinit: for init'
             'ubase: for halt, killall5, getty and respawn')
 source=('git+https://github.com/ggjp/servman.git')
 sha256sums=('SKIP')
+backup=('etc/init.d/rc')
 
 pkgver() {
   cd "$srcdir/$_gitname"
