@@ -14,10 +14,9 @@ To clarify the booting process, here are three needed tools:
 - An implementation of init(8)
     Its only tasks should be to be the parent of all processes and run an init
     script on startup. sinit[1] is an init of less than 100 understandable C
-    code that basically does nothing more than call an init script. In fact,
-    it does more than what I consider necessary for an init. It can call a
-    script when it is signaled about reboot and shutdown. It is not however
-    enough to make the code hard to understand. I simply don't use it.
+    code that basically does nothing more than call an init script. sinit can
+    call a script when it is signaled about reboot and shutdown as well, but I
+    don't use this.
 
 - An init script
     The rc script provided here only defines what happens on boot, reboot and
