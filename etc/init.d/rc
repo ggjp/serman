@@ -65,7 +65,7 @@ init() {
 	/opt/sbase/bin/respawn -d 1 agetty --noclear -8 -s 38400 tty1 linux &
 	/opt/sbase/bin/respawn -d 1 agetty --noclear -8 -s 38400 tty2 linux &
 	/opt/sbase/bin/respawn -d 1 agetty --noclear -8 -s 38400 tty3 linux &
-	/opt/sbase/bin/respawn -d 1 agetty --roclear -8 -s 38400 tty4 linux &
+	/opt/sbase/bin/respawn -d 1 agetty --noclear -8 -s 38400 tty4 linux &
 }
 
 shutdown() {
