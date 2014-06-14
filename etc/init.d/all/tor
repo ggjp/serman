@@ -1,0 +1,11 @@
+start() {
+	tor -f /etc/tor/torrc &> /dev/null &
+}
+
+stop() {
+	killall tor &> /dev/null
+}
+
+status() {
+	pgrep "^tor\$" &> /dev/null
+}
