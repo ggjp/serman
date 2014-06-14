@@ -1,5 +1,5 @@
 start() {
-	tor -f /etc/tor/torrc &> /dev/null &
+	tor --User tor -f /etc/tor/torrc &> /dev/null &
 }
 
 stop() {
