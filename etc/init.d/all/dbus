@@ -9,6 +9,6 @@ stop() {
 }
 
 status() {
-	pgrep "^dbus-launch\$" &> /dev/null &&
+	pgrep "^dbus-launch\$" &> /dev/null ||
 	pgrep "^dbus-daemon\$" &> /dev/null
 }
