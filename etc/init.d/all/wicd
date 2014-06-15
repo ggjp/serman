@@ -1,5 +1,5 @@
 # This script (strangely) does not work when called in the booting process.
-# However, it works when called with serman.
+# However, it works when called with servman.
 
 start() {
 	wicd &> /dev/null
