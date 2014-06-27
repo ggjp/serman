@@ -1,9 +1,11 @@
+source /etc/init.d/rc.conf
+
 start() {
-	TZ="US/Eastern" hwclock -s -u
+	TZ="$TIMEZONE" hwclock -s -u
 }
 
 stop() {
-	TZ="US/Eastern" hwclock -w -u
+	TZ="$TIMEZONE" hwclock -w -u
 }
 
 status() {

@@ -6,6 +6,8 @@
 
 SERVICES="hwclock syslog-ng dbus acpid iptables cron tor"
 
+source /etc/init.d/rc.conf
+
 init() {
 	echo "[RC] Mounting filesystems..."
 	# /dev, /sys, /proc are already mounted by mkinitcpio and moved to new root by switch_root
@@ -49,8 +51,12 @@ init() {
 	echo "[RC] Setting up the lo device..."
 	ip link set up dev lo
 
+	echo "[RC] Getting random MAC addresses..."
+	macchanger -Ab $ETHERNET_INTERFACE
+	macchanger -Ab $WIFI_INTERFACE
+
 	echo "[RC] Setting up keymap..."
-	loadkeys dvorak
+	loadkeys $KEYMAP
 
 	echo "[RC] Setting random seed..."
 	[ -e /etc/random-seed ] && cp /etc/random-seed /dev/urandom
