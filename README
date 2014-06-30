@@ -48,7 +48,9 @@ Warning
 Everything inside the init.d/ directory should be checked before use.
 
 You should read the rc script. It contains what is part of my system
-initialization. You will likely have different needs.
+initialization. You will likely have different needs. The script contains
+variables that should be defined in the file /etc/init.d/rc.conf. You have to
+create this file yourself.
 
 Also, the scripts in the init.d directories are not necessarily maintained. The
 scripts that I don't personally use were added at some point and left there

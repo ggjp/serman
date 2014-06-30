@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # This file solely defines what happens when the system is
-# initialized, rebooted of shutdown. Services management is
+# initialized, rebooted or shutdown. Services management is
 # not its job (though it can call a service manager here).
 
 SERVICES="hwclock syslog-ng dbus acpid iptables cron tor"
