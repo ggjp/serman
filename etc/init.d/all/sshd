@@ -1,0 +1,12 @@
+start() {
+	ssh-keygen -A &> /dev/null
+	/usr/bin/sshd
+}
+
+stop() {
+	killall sshd
+}
+
+status() {
+	pgrep "^sshd\$" &> /dev/null
+}
