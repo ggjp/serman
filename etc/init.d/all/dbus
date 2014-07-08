@@ -4,10 +4,11 @@ start() {
 }
 
 stop() {
-	if [ killall dbus-launch &> /dev/null ] || [ killall dbus-daemon &> /dev/null ]; then
+	if killall dbus-launch &> /dev/null || killall dbus-daemon &> /dev/null; then
 		return 0
 	else
 		return 1
+	fi
 }
 
 status() {
