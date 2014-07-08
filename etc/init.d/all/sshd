@@ -4,7 +4,7 @@ start() {
 }
 
 stop() {
-	killall sshd
+	killall sshd &> /dev/null
 }
 
 status() {
