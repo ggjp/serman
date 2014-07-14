@@ -88,9 +88,9 @@ shutdown() {
 	dd if=/dev/urandom of=/etc/random-seed count=1 bs=512 2> /dev/null
 	
 	echo "[RC] Killing all processes..."
-	kill -s TERM -1
+	/opt/sbase/killall5 -s TERM
 	sleep 3
-	kill -s KILL -1
+	/opt/sbase/killall5 -s KILL
 
 	echo "[RC] Unmounting swap and filesystems..."
 	swapoff -a
