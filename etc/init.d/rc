@@ -4,8 +4,6 @@
 # initialized, rebooted or shutdown. Services management is
 # not its job (though it can call a service manager here).
 
-SERVICES="hwclock syslog-ng dbus acpid iptables cron tor"
-
 source /etc/init.d/rc.conf
 
 init() {
@@ -51,6 +49,9 @@ init() {
 	echo "[RC] Setting up the lo device..."
 	ip link set up dev lo
 
+    echo "[RC] Setting the clock..."
+    TZ="$TIMEZONE" hwclock -s -u
+
 	echo "[RC] Getting random MAC addresses..."
 	macchanger -Ab $ETHERNET_INTERFACE &> /dev/null
 	macchanger -Ab $WIFI_INTERFACE &> /dev/null
@@ -79,6 +80,9 @@ shutdown() {
 
 	echo "[RC] Stopping services..."
 	servman stop all
+
+    echo "[RC] Setting the clock..."
+    TZ="$TIMEZONE" hwclock -w -u
 
 	echo "[RC] Storing random seed..."
 	dd if=/dev/urandom of=/etc/random-seed count=1 bs=512 2> /dev/null
