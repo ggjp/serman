@@ -49,12 +49,8 @@ init() {
 	echo "[RC] Setting up the lo device..."
 	ip link set up dev lo
 
-    echo "[RC] Setting the clock..."
-    TZ="$TIMEZONE" hwclock -s -u
-
-	echo "[RC] Getting random MAC addresses..."
-	macchanger -Ab $ETHERNET_INTERFACE &> /dev/null
-	macchanger -Ab $WIFI_INTERFACE &> /dev/null
+	echo "[RC] Setting the clock..."
+	TZ="$TIMEZONE" hwclock -s -u
 
 	echo "[RC] Setting up keymap..."
 	loadkeys $KEYMAP

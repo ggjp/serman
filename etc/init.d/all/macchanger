@@ -1,0 +1,14 @@
+source /etc/init.d/rc.conf
+
+start() {
+	macchanger -Ab $ETHERNET_INTERFACE &> /dev/null
+	macchanger -Ab $WIFI_INTERFACE &> /dev/null
+}
+
+stop() {
+	return 0
+}
+
+status() {
+	return 0
+}
