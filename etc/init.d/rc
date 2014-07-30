@@ -77,8 +77,8 @@ shutdown() {
 	echo "[RC] Stopping services..."
 	servman stop all
 
-    echo "[RC] Setting the clock..."
-    TZ="$TIMEZONE" hwclock -w -u
+	echo "[RC] Setting the clock..."
+	TZ="$TIMEZONE" hwclock -w -u
 
 	echo "[RC] Storing random seed..."
 	dd if=/dev/urandom of=/etc/random-seed count=1 bs=512 2> /dev/null
