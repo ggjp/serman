@@ -36,7 +36,8 @@ init() {
 	mount -o remount,rw /
 
 	echo "[RC] Creating the encrypted swap partition..."
-	cryptsetup --key-file=/dev/urandom --cipher=aes-cbc-essiv:sha256 --key-size=256 open --type plain /dev/sda4 swap
+	cryptsetup open --type luks /dev/sda4 home
+	cryptsetup --key-file=/dev/urandom --cipher=aes-cbc-essiv:sha256 --key-size=256 open --type plain /dev/sda5 swap
 	mkswap /dev/mapper/swap
 
 	echo "[RC] Mounting filesystems and swap in fstab..."
