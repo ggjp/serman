@@ -35,6 +35,9 @@ init() {
 	echo "[RC] Remounting root read-write..."
 	mount -o remount,rw /
 
+	echo "[RC] Setting up keymap..."
+	loadkeys $KEYMAP
+
 	echo "[RC] Creating the encrypted swap partition..."
 	cryptsetup open --type luks /dev/sda4 home
 	cryptsetup --key-file=/dev/urandom --cipher=aes-cbc-essiv:sha256 --key-size=256 open --type plain /dev/sda5 swap
@@ -52,9 +55,6 @@ init() {
 
 	echo "[RC] Setting the clock..."
 	TZ="$TIMEZONE" hwclock -s -u
-
-	echo "[RC] Setting up keymap..."
-	loadkeys $KEYMAP
 
 	echo "[RC] Setting random seed..."
 	[ -e /etc/random-seed ] && cp /etc/random-seed /dev/urandom
