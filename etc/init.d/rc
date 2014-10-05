@@ -25,6 +25,12 @@ init() {
 	/usr/lib/systemd/systemd-udevd --daemon
 	udevadm trigger --action=add --type=subsystems
 	udevadm trigger --action=add --type=devices
+	#echo "[RC] Starting smdev and setting it as the hotplug..."
+	#smdev -s
+	#echo /bin/smdev > /proc/sys/kernel/hotplug
+
+	echo "[RC] Unlocking the home partition..."
+	cryptsetup open --type luks /dev/sda4 home
 
 	echo "[RC] Checking filesystems..."
 	if ! fsck -ATa; then
@@ -39,7 +45,6 @@ init() {
 	loadkeys $KEYMAP
 
 	echo "[RC] Creating the encrypted swap partition..."
-	cryptsetup open --type luks /dev/sda4 home
 	cryptsetup --key-file=/dev/urandom --cipher=aes-cbc-essiv:sha256 --key-size=256 open --type plain /dev/sda5 swap
 	mkswap /dev/mapper/swap
 
@@ -59,6 +64,9 @@ init() {
 	echo "[RC] Setting random seed..."
 	[ -e /etc/random-seed ] && cp /etc/random-seed /dev/urandom
 	dd if=/dev/urandom of=/etc/random-seed count=1 bs=512 2> /dev/null
+
+	echo "[RC] Enabling coredumps..."
+	ulimit -c unlimited
 
 	echo "[RC] Starting services..."
 	for service in $SERVICES; do
