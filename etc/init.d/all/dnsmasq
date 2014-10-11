@@ -1,0 +1,11 @@
+start() {
+	dnsmasq --user=dnsmasq --pid-file &> /dev/null &
+}
+
+stop() {
+	killall dnsmasq &> /dev/null
+}
+
+status() {
+	pgrep "^dnsmasq\$" &> /dev/null
+}
